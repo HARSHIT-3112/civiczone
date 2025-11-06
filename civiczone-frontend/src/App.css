@@ -1,0 +1,203 @@
+/* === Base Setup === */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  background: linear-gradient(120deg, #e6f0ff, #ffffff, #e6f0ff);
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+  min-height: 100vh;
+}
+
+/* Smooth animated background gradient */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* === Navbar === */
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0056b3;
+  letter-spacing: 1px;
+}
+
+.navbar .links a {
+  text-decoration: none;
+  color: #0056b3;
+  font-weight: 600;
+  margin-left: 25px;
+  transition: all 0.2s;
+}
+
+.navbar .links a:hover {
+  color: #0a66c2;
+  transform: scale(1.05);
+}
+
+/* === Main Section === */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.intro h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0d47a1;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: #444;
+  max-width: 700px;
+  margin: 10px auto 35px;
+}
+
+/* === Upload Card === */
+.upload-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 35px 40px;
+  width: 100%;
+  max-width: 550px;
+  transition: all 0.3s ease;
+}
+
+.upload-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.file-input {
+  width: 100%;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.preview {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 2px solid #64b5f6;
+}
+
+.upload-btn {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #1976d2, #42a5f5);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background: linear-gradient(135deg, #1565c0, #2196f3);
+  transform: translateY(-1px);
+}
+
+/* === Status === */
+.status {
+  margin-top: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* === Result Card === */
+.result-card {
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 15px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  text-align: left;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.result-card h3 {
+  color: #0d47a1;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* === Email status messages === */
+.email-success {
+  margin-top: 15px;
+  color: #2e7d32;
+  background: rgba(200, 230, 201, 0.5);
+  border: 1px solid #81c784;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.email-failure {
+  margin-top: 15px;
+  color: #c62828;
+  background: rgba(239, 154, 154, 0.5);
+  border: 1px solid #ef9a9a;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* === Footer === */
+footer {
+  margin-top: 60px;
+  padding: 25px 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+  color: #444;
+  text-align: center;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
