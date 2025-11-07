@@ -1,16 +1,39 @@
-const BASE_URL = "http://localhost:8000";
+const BASE = "http://127.0.0.1:8000";
 
-export async function analyzeIssue(image, lat, lon) {
-  const formData = new FormData();
-  formData.append("file", image);
-  formData.append("lat", lat);
-  formData.append("lon", lon);
-
-  const response = await fetch(`${BASE_URL}/analyze`, {
-    method: "POST",
-    body: formData,
+export async function register(user) {
+  const res = await fetch(`${BASE}/auth/register`, {
+    method:"POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(user)
   });
+  if (!res.ok) throw new Error("Register failed");
+  return res.json();
+}
 
-  if (!response.ok) throw new Error("Backend request failed");
-  return await response.json();
+export async function login(credentials) {
+  const res = await fetch(`${BASE}/auth/login`, {
+    method:"POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(credentials)
+  });
+  if(!res.ok) throw new Error("Login failed");
+  return res.json();
+}
+
+export async function createReport(file, lat, lon, token) {
+  const form = new FormData();
+  form.append("file", file);
+  form.append("lat", lat);
+  form.append("lon", lon);
+  form.append("token", token);
+
+  const res = await fetch(`${BASE}/reports/create`, { method:"POST", body: form });
+  if(!res.ok) throw new Error("Report failed");
+  return res.json();
+}
+
+export async function getReports(token) {
+  const url = token ? `${BASE}/reports/?token=${token}` : `${BASE}/reports/`;
+  const res = await fetch(url);
+  return res.json();
 }
