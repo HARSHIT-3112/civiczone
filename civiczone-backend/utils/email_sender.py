@@ -11,11 +11,11 @@ EMAIL_PASS = os.getenv("EMAIL_PASS")
 
 # Department contact mapping
 DEPARTMENT_EMAILS = {
-    "garbage": "suhani.2327it1192@kiet.edu",
-    "pothole": "suhani.2327it1192@kiet.edu",
-    "pollution": "suhani.2327it1192@kiet.edu",
-    "streetlight": "suhani.2327it1192@kiet.edu",
-    "water leakage": "suhani.2327it1192@kiet.edu",
+    "garbage": "shreyanshtiwari.5050@gmail.com",
+    "pothole": "shreyanshtiwari.5050@gmail.com",
+    "pollution": "shreyanshtiwari.5050@gmail.com",
+    "streetlight": "shreyanshtiwari.5050@gmail.com",
+    "water leakage": "shreyanshtiwari.5050@gmail.com",
 }
 
 

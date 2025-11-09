@@ -12,8 +12,10 @@ class UserOut(BaseModel):
     id: int
     email: EmailStr
     name: Optional[str]
+    is_admin: bool
     class Config:
         orm_mode = True
+
 
 class Token(BaseModel):
     access_token: str
@@ -27,12 +29,13 @@ class ReportCreate(BaseModel):
 
 class ReportOut(BaseModel):
     id: int
-    user_id: int
     issue_type: str
     description: str
     lat: float
     lon: float
     email_sent: bool
+    status: str
     created_at: datetime
     class Config:
         orm_mode = True
+

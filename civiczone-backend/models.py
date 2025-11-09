@@ -11,9 +11,10 @@ class User(Base):
     name = Column(String, nullable=True)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
-    is_admin = Column(Boolean, default=False)
+    is_admin = Column(Boolean, default=False)  # ✅ ensures admin role
 
     reports = relationship("Report", back_populates="user")
+
 
 class Report(Base):
     __tablename__ = "reports"
@@ -23,6 +24,7 @@ class Report(Base):
     description = Column(String)
     lat = Column(Float)
     lon = Column(Float)
+    status = Column(String, default="Ongoing")  # 🆕 new field
     email_sent = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 

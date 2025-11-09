@@ -54,3 +54,19 @@ def list_reports(token: str = None, db: Session = Depends(get_db)):
         except Exception:
             raise HTTPException(401, "Invalid token")
     return crud.get_reports(db)
+
+# routes_reports.py (or appropriate file)
+from fastapi import Body
+
+@router.patch("/update_status/{report_id}")
+def update_status(report_id: int, payload: dict = Body(...), db: Session = Depends(get_db)):
+    """
+    Accepts JSON payload like: { "status": "Completed" }
+    """
+    status = payload.get("status")
+    if not status:
+        raise HTTPException(400, "Missing 'status' in request body")
+    report = crud.update_report_status(db, report_id, status)
+    if not report:
+        raise HTTPException(404, "Report not found")
+    return {"message": f"Report {report_id} marked as {status}", "report_id": report_id, "status": status}

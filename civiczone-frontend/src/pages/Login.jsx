@@ -1,28 +1,57 @@
 import { useState } from "react";
 import { login } from "../services/api";
 
-export default function Login({ setToken }) {
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
-  const [err,setErr]=useState("");
+export default function Login({ setPage, setToken }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMsg("⏳ Logging in...");
+
     try {
-      const data = await login({email,password});
+      const data = await login({ email, password });
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("is_admin", data.is_admin);
+      localStorage.setItem("name", data.name || "User");
       setToken(data.access_token);
-    } catch (e) {
-      setErr("Login failed");
+      setMsg("✅ Login successful!");
+      setTimeout(() => setPage("dashboard"), 1200);
+    } catch (err) {
+      setMsg("❌ Invalid credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={submit} style={{maxWidth:400, margin:"20px auto"}}>
-      <h2>Login</h2>
-      <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} required/>
-      <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} required/>
-      <button type="submit">Login</button>
-      {err && <p style={{color:"red"}}>{err}</p>}
-    </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>🔐 Welcome Back</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+        {msg && <p className="msg">{msg}</p>}
+      </div>
+    </div>
   );
 }

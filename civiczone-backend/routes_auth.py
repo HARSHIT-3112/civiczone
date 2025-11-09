@@ -21,13 +21,20 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     user = crud.create_user(db, user_in.email, user_in.password, user_in.name)
     return user
 
-@router.post("/login", response_model=schemas.Token)
+@router.post("/login")
 def login(form_data: schemas.UserCreate, db: Session = Depends(get_db)):
     user = crud.get_user_by_email(db, form_data.email)
     if not user or not auth.verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
+
     token = auth.create_access_token({"sub": str(user.id)})
-    return {"access_token": token, "token_type": "bearer"}
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "is_admin": user.is_admin,  # ✅ include role in response
+        "name": user.name,
+    }
+
 
 @router.get("/me", response_model=schemas.UserOut)
 def me(token: str, db: Session = Depends(get_db)):
@@ -46,3 +53,5 @@ def me(token: str, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(404, "User not found")
     return user
+
+

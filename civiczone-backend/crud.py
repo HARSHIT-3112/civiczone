@@ -24,3 +24,11 @@ def get_reports_for_user(db: Session, user_id: int):
 
 def get_reports(db: Session):
     return db.query(models.Report).order_by(models.Report.created_at.desc()).all()
+
+def update_report_status(db: Session, report_id: int, status: str):
+    report = db.query(models.Report).filter(models.Report.id == report_id).first()
+    if report:
+        report.status = status
+        db.commit()
+        db.refresh(report)
+    return report

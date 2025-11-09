@@ -37,3 +37,18 @@ export async function getReports(token) {
   const res = await fetch(url);
   return res.json();
 }
+
+// src/services/api.js
+export async function updateStatus(reportId, status) {
+  const res = await fetch(`http://127.0.0.1:8000/reports/update_status/${reportId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status }), // send object { status: "Completed" }
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to update status: ${res.status} ${text}`);
+  }
+  return res.json();
+}
