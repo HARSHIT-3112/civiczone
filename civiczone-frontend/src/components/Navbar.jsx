@@ -1,16 +1,27 @@
-function Navbar() {
+export default function Navbar({ setPage, token, handleLogout }) {
   return (
     <nav className="navbar">
-      <h2 className="logo">🌐 CivicZone</h2>
-      <div className="links">
-        <a href="#about">About</a>
-        <a href="https://github.com/" target="_blank" rel="noreferrer">
-          GitHub ↗
-        </a>
+      <div
+        className="logo"
+        style={{ cursor: "pointer" }}
+        onClick={() => setPage("home")}
+      >
+        🌐 CivicZone
+      </div>
+      <div>
+        {!token ? (
+          <>
+            <button onClick={() => setPage("home")}>Home</button>
+            <button onClick={() => setPage("login")}>Login</button>
+            <button onClick={() => setPage("register")}>Register</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => setPage("dashboard")}>Dashboard</button>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        )}
       </div>
     </nav>
   );
 }
-
-export default Navbar;
-

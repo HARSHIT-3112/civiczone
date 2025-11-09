@@ -1,23 +1,31 @@
+import { useState } from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./components/Dashboard";
+import SubmitIssue from "./pages/SubmitIssue";
 import Navbar from "./components/Navbar";
-import ImageUploader from "./components/ImageUploader";
-import "./App.css";
+import LandingPage from "./pages/LandingPage";
 
-function App() {
+export default function App() {
+  const [page, setPage] = useState("LandingPage");
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+    setPage("home");
+  };
+
   return (
-    <div className="app">
-      <Navbar />
-      <main className="main-content">
-        <div className="intro">
-          <h1>CivicZone 🏙️</h1>
-          <p>
-            Report civic issues instantly — powered by AI and automatic
-            location detection.
-          </p>
-        </div>
-        <ImageUploader />
-      </main>
-    </div>
+    <>
+      <Navbar setPage={setPage} token={token} handleLogout={handleLogout} />
+      {page === "landing" && <LandingPage setPage={setPage} />}
+      {page === "home" && <Home setPage={setPage} />}
+      {page === "login" && <Login setPage={setPage} setToken={setToken} />}
+      {page === "register" && <Register setPage={setPage} />}
+      {page === "dashboard" && <Dashboard token={token} setPage={setPage} />}
+      {page === "submit" && <SubmitIssue token={token} setPage={setPage} />}
+    </>
   );
 }
-
-export default App;
